@@ -1,6 +1,6 @@
 {
   "name": "figlify",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "CLI tool to create figlets",
   "main": "index.js",
   "author": "Vladislav Zhabinsky <vladislavzhabinsky@gmail.com>",
@@ -19,5 +19,9 @@
     "figlet",
     "cli",
     "figlify"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zhabinsky/figlify"
+  }
 }
