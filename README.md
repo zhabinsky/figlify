@@ -10,7 +10,23 @@ npm i -g figlify
 
 # Use
 ```
-figlify
+$ figlify "MeowMeow" --copy
+  __  __                      __  __                    
+ |  \/  | ___  _____      __ |  \/  | ___  _____      __
+ | |\/| |/ _ \/ _ \ \ /\ / / | |\/| |/ _ \/ _ \ \ /\ / /
+ | |  | |  __/ (_) \ V  V /  | |  | |  __/ (_) \ V  V / 
+ |_|  |_|\___|\___/ \_/\_/   |_|  |_|\___|\___/ \_/\_/  
+                                                        
+```
+
+# Manual
+
+```
+Flags:                          Description:                     
+------------------------------  ---------------------------------
+--S, --s, --silent, --Silent    Disables console output          
+--copy, --cp                    Executes pbcopy with the result  
+--m, --manual, --manual, --man  Shows all available CLI arguments
 ```
 
 
