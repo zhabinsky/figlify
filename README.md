@@ -1,6 +1,5 @@
 # Figlify
-This is a wrapper around for [figlet](https://www.npmjs.com/package/figlet) package.
-Created to be used  
+Create [Figlets](https://www.npmjs.com/package/figlet) from your terminal.
 
 # Install
 ```
