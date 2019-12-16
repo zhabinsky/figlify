@@ -3,7 +3,12 @@
 const argumentator = require ('./argumentator');
 const clipboardy = require ('clipboardy');
 const chalk = require ('chalk');
-const figlet = require ('figlet');
+const createFiglets = require ('./createFiglets');
+
+function copyFiglets (figlets) {
+  clipboardy.writeSync (figlets);
+  console.log (chalk.green ('Copied your figlet to clipboard 🦄!'));
+}
 
 function disableConsole () {
   console.log = () => null;
@@ -14,47 +19,20 @@ function disableConsole () {
 
 const context = argumentator ([
   {
-    flags: '--S,--s,--silent,--Silent',
+    flags: '--silent',
     description: 'Disables console output',
     action: disableConsole,
   },
   {
-    flags: '--copy,--cp',
-    description: 'Executes pbcopy with the result',
-    value: {copy: true},
+    flags: '--copy',
+    description: 'Copies created figlets',
   },
 ]);
 
-function getText () {
-  const text = process.argv[2];
-  if (!text || text.trim ().length === 0 || text.indexOf ('--') !== -1) {
-    console.error (chalk.red ('Error: Supply text as first parameter'));
-    process.exit (1);
-  }
-  return text;
-}
+const notEmpty = e => !!e && e.length > 0;
+const texts = context.texts.filter (notEmpty);
 
-function createFiglet (text) {
-  return new Promise ((res, rej) => {
-    figlet (text, (err, data) => {
-      if (err || !data) return rej (err);
-      res (data);
-    });
-  });
-}
-
-const {copy = false} = context;
-const text = getText ();
-
-createFiglet (text)
-  .then (compiled => {
-    console.log (compiled);
-    if (copy) {
-      clipboardy.writeSync (compiled);
-      console.log (chalk.green ('Copied your figlet to clipboard 🦄!'));
-    }
-  })
-  .catch (err => {
-    console.error (err);
-    console.error (chalk.red ('Error: Could not create figlet'));
-  });
+createFiglets (texts).then (a => a.join ('\n')).then (figlets => {
+  console.log (figlets);
+  if (context.copy) copyFiglets(figlets)
+});

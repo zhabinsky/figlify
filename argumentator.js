@@ -3,29 +3,54 @@ require ('console.table');
 const chalk = require ('chalk');
 
 const createContext = userArguments => {
-  const allArguments = [
+  const argumentDeclarations = [
     ...toArray (userArguments),
     {
-      flags: `--m,--manual,--manual,--man`,
+      flags: `--manual`,
       description: 'Shows all available CLI arguments',
-      action: () => table (allArguments) && process.exit (),
+      action: () => table (argumentDeclarations) || process.exit (),
     },
   ];
   const context = {};
-  const atLeastOne = e => e.length > 0;
-  allArguments.forEach (declaration => {
-    const args = process.argv.slice (2);
-    const contains = c =>
-      atLeastOne (
-        Array.isArray (c)
-          ? c.map (e => contains (e)).filter (e => !!e)
-          : args.filter (e => e === c)
-      );
-    const {flags, action = () => ({}), value = {}} = declaration;
-    if (!flags) throw Error ('Flags not specified');
-    if (contains (flags.split (',')))
-      Object.assign (context, action () || {}, value);
-  });
+  const args = process.argv.slice (2);
+
+  const paramRegex = /\-\-.*\=.*/;
+  const flagRegex = /^--/;
+
+  const extendContextFromConfig = argumentDeclaration => {
+    const contains = c => {
+      const arr = Array.isArray (c)
+        ? c.map (e => contains (e)).filter (e => !!e)
+        : args.filter (e => !paramRegex.test (e)).filter (e => e === c);
+      return arr.length > 0;
+    };
+    const {flags, action = () => ({}), value} = argumentDeclaration;
+    if (contains (flags.split (','))) {
+      const hasAction = action && typeof action === 'function';
+      const hasValue = value && typeof value === 'object';
+      if (hasAction) Object.assign (context, action (context) || {});
+      if (hasValue) Object.assign (context, value);
+    }
+  };
+  const extendContextWithValues = () => {
+    const params = args.filter (e => flagRegex.test (e));
+    params
+      .map (uprefixArgument)
+      .map (param => param.split ('='))
+      .map (([key, val = true]) => {
+        context[key] = val;
+      });
+  };
+  const collectTexts = () => {
+    context.texts = args.filter(e => !flagRegex.test(e));
+  }
+
+  collectTexts();
+  extendContextWithValues ();
+  argumentDeclarations.forEach (argumentDeclaration =>
+    extendContextFromConfig (argumentDeclaration)
+  );
+  context.args = args;
   return context;
 };
 
@@ -40,10 +65,13 @@ function table (userArguments) {
     };
   });
   console.table (table);
-  return true;
 }
 
 function toArray (a) {
   if (Array.isArray (a)) return a;
   return [a];
+}
+
+function uprefixArgument (a) {
+  return a.replace (/^\-\-/, '');
 }

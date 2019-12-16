@@ -1,7 +1,6 @@
 # Figlify
-This is a wrapper package for [figlet](https://www.npmjs.com/package/figlet) package
-
-The original package (as of version ```1.2.4```) does work as a CLI if installed globally. So I created this wrapper for an easier use.
+This is a wrapper around for [figlet](https://www.npmjs.com/package/figlet) package.
+Created to be used  
 
 # Install
 ```
@@ -10,23 +9,29 @@ npm i -g figlify
 
 # Use
 ```
-$ figlify "MeowMeow" --copy
-  __  __                      __  __                    
- |  \/  | ___  _____      __ |  \/  | ___  _____      __
- | |\/| |/ _ \/ _ \ \ /\ / / | |\/| |/ _ \/ _ \ \ /\ / /
- | |  | |  __/ (_) \ V  V /  | |  | |  __/ (_) \ V  V / 
- |_|  |_|\___|\___/ \_/\_/   |_|  |_|\___|\___/ \_/\_/  
-                                                        
+$ figlify "Meow" "Goof" --copy
+  __  __                    
+ |  \/  | ___  _____      __
+ | |\/| |/ _ \/ _ \ \ /\ / /
+ | |  | |  __/ (_) \ V  V / 
+ |_|  |_|\___|\___/ \_/\_/  
+   ____              __ 
+  / ___| ___   ___  / _|
+ | |  _ / _ \ / _ \| |_ 
+ | |_| | (_) | (_) |  _|
+  \____|\___/ \___/|_|
 ```
 
 # Manual
 
 ```
-Flags:                          Description:                     
-------------------------------  ---------------------------------
---S, --s, --silent, --Silent    Disables console output          
---copy, --cp                    Executes pbcopy with the result  
---m, --manual, --manual, --man  Shows all available CLI arguments
+$ figlify --manual
+
+Flags:    Description:                     
+--------  ---------------------------------
+--silent  Disables console output          
+--copy    Copies created figlets           
+--manual  Shows all available CLI arguments
 ```
 
 

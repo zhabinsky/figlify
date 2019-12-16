@@ -1,7 +1,7 @@
 {
   "name": "figlify",
-  "version": "1.0.2",
-  "description": "CLI tool to create figlets",
+  "version": "1.0.3",
+  "description": "Create figlets from CommandLine",
   "main": "index.js",
   "author": "Vladislav Zhabinsky <vladislavzhabinsky@gmail.com>",
   "license": "ISC",
