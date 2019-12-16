@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const argumentator = require ('./argumentator');
+const argumentator = require ('argumentator');
 const clipboardy = require ('clipboardy');
 const chalk = require ('chalk');
 const createFiglets = require ('./createFiglets');

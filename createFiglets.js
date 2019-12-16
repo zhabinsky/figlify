@@ -1,4 +1,3 @@
-
 const figlet = require ('figlet');
 
 function createFiglet (text) {
@@ -24,5 +23,4 @@ async function createFiglets (texts) {
   return figlets;
 }
 
-
-module.exports = createFiglets
+module.exports = createFiglets;

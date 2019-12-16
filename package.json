@@ -1,6 +1,6 @@
 {
   "name": "figlify",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Create figlets from CommandLine",
   "main": "index.js",
   "author": "Vladislav Zhabinsky <vladislavzhabinsky@gmail.com>",
@@ -10,6 +10,7 @@
     "figlify": "./bin/figlify"
   },
   "dependencies": {
+    "argumentator": "^1.0.2",
     "chalk": "^3.0.0",
     "clipboardy": "^2.1.0",
     "console.table": "^0.10.0",
